@@ -10,25 +10,23 @@
   <script src="app.js" defer></script>
 </head>
 <body>
-  <header><a href="./" class="brand">workout<span>bg</span><span class="brand-dot" aria-hidden="true"></span></a><span class="local">● &nbsp; Made on your device</span></header>
   <main>
-    <section class="intro"><p class="eyebrow">YOUR EFFORT. YOUR FRAME.</p><h1>Give your workout<br>a fitting finish.</h1><p class="description">Add your photo. We’ll take care of the background.<br>A little space around a big achievement.</p></section>
+    <section class="intro"><br /></section>
     <div class="workspace">
       <section class="controls" aria-label="Image controls">
-        <div class="step"><span class="number">01</span><h2>Choose your photo</h2></div>
+        <div class="step"><span class="number">01</span><h2>Upload workout image</h2></div>
         <label class="upload" id="drop-zone" for="upload"><span class="upload-icon" aria-hidden="true">↥</span><strong id="upload-label">Choose an image</strong><span>PNG or JPG · or drop it here</span><input id="upload" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg"></label>
         <p class="hint">Your photo fits inside an 1800 × 1800 px square. Its proportions and transparency stay intact.</p>
         <div class="divider"></div>
-        <div class="step"><span class="number">02</span><h2>Make it yours</h2></div>
+        <div class="step"><span class="number">02</span><h2>Download</h2></div>
         <p class="hint">Preview your frame, then save the full-resolution image.</p>
         <a id="download" class="button disabled" aria-disabled="true" download="workout.png">Download PNG <span aria-hidden="true">↓</span></a>
         <button id="share" class="secondary" hidden>Share / Save to Photos</button>
         <p id="share-hint" class="hint" hidden>On iPhone, tap Share and choose Save Image or Save to Files.</p>
         <p id="status" role="status" aria-live="polite">Loading background…</p>
       </section>
-      <section class="preview-section" aria-label="Result preview"><div class="preview-heading"><span>THE PREVIEW</span><span>2400 × 2400 PX</span></div><div class="preview"><canvas id="canvas" width="2400" height="2400" role="img" aria-label="Workout background preview"></canvas><div id="placeholder"><span aria-hidden="true">＋</span><p>Your photo goes here</p></div></div><p class="preview-caption">A clean frame. Ready to share.</p></section>
+      <section class="preview-section" aria-label="Result preview"><div class="preview-heading"><span>PREVIEW</span><span>2400 × 2400 PX</span></div><div class="preview"><canvas id="canvas" width="2400" height="2400" role="img" aria-label="Workout background preview"></canvas><div id="placeholder"><span aria-hidden="true">＋</span><p>Your photo goes here</p></div></div></section>
     </div>
   </main>
-  <footer><span>One photo. A stronger finish.</span><span>No uploads. No accounts. Just your browser.</span></footer>
 </body>
 </html>
