@@ -34,7 +34,7 @@ const background = loadImage('./base-bg.png');
 background.then(image => {
   if (revision === 0) {
     ctx.drawImage(image, 0, 0, 2400, 2400);
-    message('Choose a photo to get started.');
+    message('Choose an image to get started.');
   }
 }).catch(() => message('The background could not load. Refresh the page to try again.', true));
 async function compose(file) {
@@ -73,7 +73,7 @@ async function compose(file) {
     share.hidden = !canShare;
     document.querySelector('#share-hint').hidden = !canShare;
     document.querySelector('#upload-label').textContent = file.name;
-    canvas.setAttribute('aria-label', 'Your photo centered on the workout background');
+    canvas.setAttribute('aria-label', 'Your image centered on the workout background');
     message('Ready. Your 2400 × 2400 PNG is good to go.');
   } catch (error) {
     if (current === revision) message(error.message || 'Something went wrong. Please try another image.', true);
