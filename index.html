@@ -6,8 +6,10 @@
   <meta name="theme-color" content="#f5f4ef">
   <meta name="description" content="Frame your workout image and download a full-resolution PNG. Private, free, and entirely in your browser.">
   <title>WorkoutBG — Frame your workout</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261113-4">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <script src="app.js?v=20261113-4" defer></script>
 </head>
 <body>
   <main>
@@ -17,7 +19,11 @@
         <label class="upload" id="drop-zone" for="upload"><span class="upload-icon" aria-hidden="true">↥</span><strong id="upload-label">Choose an image</strong><span>PNG or JPG · or drop it here</span><input id="upload" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg"></label>
         <p class="hint">Your image fits inside an 1800 × 1800 px square. Its proportions and transparency stay intact.</p>
         <div class="divider"></div>
-        <div class="step"><span class="number">02</span><h2>Download</h2></div>
+        <div class="step"><span class="number">02</span><h2><label for="workout-date">Workout date</label></h2></div>
+        <input id="workout-date" type="date" required aria-describedby="date-preview">
+        <p id="date-preview" class="hint"></p>
+        <div class="divider"></div>
+        <div class="step"><span class="number">03</span><h2>Download</h2></div>
         <p class="hint">Preview your frame, then save the full-resolution image.</p>
         <a id="download" class="button disabled" aria-disabled="true" download="workout.png">Download PNG <span aria-hidden="true">↓</span></a>
         <button id="share" class="secondary" hidden>Share / Save to Photos</button>

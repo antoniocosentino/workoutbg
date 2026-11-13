@@ -22,7 +22,7 @@ jobs:
       - name: Prepare static files
         run: |
           mkdir _site
-          cp index.html style.css app.js base-bg.png _site/
+          cp index.html style.css app.js base-bg.png favicon.png apple-touch-icon.png _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

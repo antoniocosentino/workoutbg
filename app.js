@@ -8,6 +8,28 @@ const status = document.querySelector('#status');
 let resultURL;
 let resultFile;
 let revision = 0;
+let selectedFile;
+const dateInput = document.querySelector('#workout-date');
+const datePreview = document.querySelector('#date-preview');
+const today = new Date();
+dateInput.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+function formatDate(value) {
+  const [year, month, day] = value.split('-').map(Number);
+  const date = new Date(year, month - 1, day, 12);
+  return `${date.toLocaleDateString('en-US', { weekday: 'long' })} ${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}.${String(year).padStart(4, '0')}`;
+}
+datePreview.textContent = formatDate(dateInput.value);
+dateInput.addEventListener('change', () => {
+  if (!dateInput.value || !dateInput.validity.valid) {
+    ++revision;
+    disableExport();
+    datePreview.textContent = '';
+    message('Choose a valid workout date to continue.', true);
+    return;
+  }
+  datePreview.textContent = formatDate(dateInput.value);
+  if (selectedFile) compose(selectedFile);
+});
 function message(text, error = false) {
   status.textContent = text;
   status.classList.toggle('error', error);
@@ -45,6 +67,11 @@ async function compose(file) {
     message('Please choose a PNG or JPG image.', true);
     return;
   }
+  selectedFile = file;
+  if (!dateInput.value || !dateInput.validity.valid) {
+    message('Choose a valid workout date to continue.', true);
+    return;
+  }
   message('Preparing your image…');
   const sourceURL = URL.createObjectURL(file);
   try {
@@ -58,6 +85,20 @@ async function compose(file) {
     const width = photo.naturalWidth * scale;
     const height = photo.naturalHeight * scale;
     ctx.drawImage(photo, (2400 - width) / 2, (2400 - height) / 2, width, height);
+    const dateText = formatDate(dateInput.value);
+    // Supersample only the caption to keep mobile memory use modest.
+    const caption = document.createElement('canvas');
+    caption.width = 3600;
+    caption.height = 256;
+    const captionCtx = caption.getContext('2d');
+    captionCtx.scale(2, 2);
+    captionCtx.font = '400 64px Arial, Helvetica, sans-serif';
+    captionCtx.textAlign = 'center';
+    captionCtx.textBaseline = 'top';
+    captionCtx.fillStyle = '#ffffff';
+    captionCtx.fillText(dateText, 900, 0, 1800);
+    ctx.drawImage(caption, 300, (2400 + height) / 2 + 60, 1800, 128);
+    caption.width = caption.height = 0;
     document.querySelector('#placeholder').hidden = true;
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     if (current !== revision) return;
@@ -73,7 +114,7 @@ async function compose(file) {
     share.hidden = !canShare;
     document.querySelector('#share-hint').hidden = !canShare;
     document.querySelector('#upload-label').textContent = file.name;
-    canvas.setAttribute('aria-label', 'Your image centered on the workout background');
+    canvas.setAttribute('aria-label', `Your image centered on the workout background, ${dateText}`);
     message('Ready. Your 2400 × 2400 PNG is good to go.');
   } catch (error) {
     if (current === revision) message(error.message || 'Something went wrong. Please try another image.', true);
